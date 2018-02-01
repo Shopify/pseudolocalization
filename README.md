@@ -2,13 +2,33 @@
 
 > Pseudolocalization (or pseudo-localization) is a software testing method used for testing internationalization aspects of software. Instead of translating the text of the software into a foreign language, as in the process of localization, the textual elements of an application are replaced with an altered version of the original language.
 
+Internationalization is a hard and tedious process. Different character sets, different average word length, different pluralization rules... There's a lot going on and it's impossible to test against all possible scenarios. As a side effect, most of us will simply test against one or two known languages and hope for the best. Unfortunately, this often leads to broken UI elements, texts going out of bounds, or forgotten non-translated strings making their way into a final release.
+
+As an example, let's examine the string "Set the power switch to 0.";
+
+| Language | String | Characters | Percentage |
+|----------|--------|------------|------------|
+| English | Set the power switch to 0. | 26 chars | -
+| French | Placez l'interrupteur de tension à 0. | 37 chars | 42% more
+| Spanish | Ponga el interruptor de alimentación de corriente en 0. | 55 chars | 112% more
+
+It's easy to see that any hardcoded widths would likely break giving such a string. IBM suggests that on average, we should expect any English string to inflate by 30% when translating in another language.
+
+In an attempt to ease this whole process, we created a small tool that gives you the ability to preview your product with pseudo-translations in a way that will;
+
+1. Identify untranslated strings
+2. Expand words by doubling all vowels
+3. Use English lookalike UTF8 characters for readability
+
+Our hope is that this tool will allow you to develop with international markets in mind, making it easier to make commerce better for everyone... everywhere.
+
 ## Installation
 
 Add these lines to your application's Gemfile:
 
 ```ruby
 group :development do
-  gem 'pseudolocalization'
+  gem 'pseudolocalization', require: false
 end
 ```
 
@@ -18,7 +38,17 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+In an initializer, add the following lines:
+
+```ruby
+if Rails.env.development? && ENV["I18N_BACKEND"]
+  case ENV["I18N_BACKEND"]
+  when 'pseudolocalization'
+    require 'pseudolocalization'
+    I18n.backend = Pseudolocalization::I18n::Backend.new(I18n.backend)
+  end
+end
+```
 
 ## Contributing
 
