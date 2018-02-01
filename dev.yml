@@ -1,0 +1,14 @@
+name: pseudolocalization
+
+type: ruby
+
+up:
+  - ruby: 2.4.2
+  - bundler
+
+commands:
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    run: rake test
