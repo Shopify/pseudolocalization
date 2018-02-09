@@ -2,6 +2,8 @@
 
 > Pseudolocalization (or pseudo-localization) is a software testing method used for testing internationalization aspects of software. Instead of translating the text of the software into a foreign language, as in the process of localization, the textual elements of an application are replaced with an altered version of the original language.
 
+## Why?
+
 Internationalization is a hard and tedious process. Different character sets, different average word length, different pluralization rules... There's a lot going on and it's impossible to test against all possible scenarios. As a side effect, most of us will simply test against one or two known languages and hope for the best. Unfortunately, this often leads to broken UI elements, texts going out of bounds, or forgotten non-translated strings making their way into a final release.
 
 As an example, let's examine the string "Set the power switch to 0.";
@@ -28,7 +30,7 @@ Add these lines to your application's Gemfile:
 
 ```ruby
 group :development do
-  gem 'pseudolocalization', require: false
+  gem 'pseudolocalization', source: PACKAGE_CLOUD, require: false
 end
 ```
 
@@ -36,9 +38,7 @@ And then execute:
 
     $ bundle
 
-## Usage
-
-In an initializer, add the following lines:
+Finally, in an initializer, add the following lines:
 
 ```ruby
 if Rails.env.development? && ENV["I18N_BACKEND"]
@@ -49,6 +49,14 @@ if Rails.env.development? && ENV["I18N_BACKEND"]
   end
 end
 ```
+
+## Resources
+
+* [IBM Globalization Guidelines](http://www-01.ibm.com/software/globalization/guidelines/index.html)
+* [Design for internationalization - Dropbox Design](https://medium.com/dropbox-design/design-for-internationalization-24c12ea6b38f)
+* [Estimating character length of words in other languages](https://docs.google.com/spreadsheets/d/1iHnzfBnMZ-5qKTKD_lx5l3tMPCHkqk_IvKup-EN0aDc)
+* [Pseudolocalization](https://en.wikipedia.org/wiki/Pseudolocalization)
+* [Essential Guide to App Internationalization](https://drive.google.com/open?id=1c6nAw6ttF_uHRq0ZQaGu5gYD0vjq9lHP)
 
 ## Contributing
 
