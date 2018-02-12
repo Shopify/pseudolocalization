@@ -3,6 +3,11 @@ require "pseudolocalization/version"
 module Pseudolocalization
   module I18n
     class Backend
+      BRACKET_START = '<'
+      BRACKET_END = '>'
+
+      VOWELS = %w(a e i o u y)
+
       LEET = {
         'a' => 'α',
         'b' => 'β',
@@ -56,11 +61,23 @@ module Pseudolocalization
         # replace html entities, we don't care
         result = result.gsub(/&[a-z]+;/, ' ')
 
-        # double all vowels in an attempt to increase words length
-        result = result.gsub(/[aeiouy]/) { |c| c * 2 }
+        outside_brackets = true
 
-        # replace chars with utf8 lookalike
-        result.gsub(/[a-z]/, LEET)
+        result.chars.map do |char|
+          if char == BRACKET_START
+            outside_brackets = false
+            char
+          elsif char == BRACKET_END
+            outside_brackets = true
+            char
+          elsif outside_brackets && LEET.key?(char)
+            ret = LEET[char]
+            ret = ret * 2 if VOWELS.include?(char)
+            ret
+          else
+            char
+          end
+        end.join
       end
     end
   end
