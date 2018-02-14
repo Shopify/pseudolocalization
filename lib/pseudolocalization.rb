@@ -54,16 +54,27 @@ module Pseudolocalization
       end
 
       def translate(locale, key, options)
-        result = @old_backend.translate(locale, key, options)
+        translate_object(@old_backend.translate(locale, key, options))
+      end
 
-        return result unless result.is_a?(String)
+      def translate_object(object)
+        if object.is_a?(Hash)
+          object.transform_values { |value| translate_object(value) }
+        elsif object.is_a?(Array)
+          object.map { |value| translate_object(value) }
+        elsif object.is_a?(String)
+          translate_string(object)
+        else
+          object
+        end
+      end
 
-        # replace html entities, we don't care
-        result = result.gsub(/&[a-z]+;/, ' ')
+      def translate_string(string)
+        string = string.gsub(/&[a-z]+;/, ' ')
 
         outside_brackets = true
 
-        result.chars.map do |char|
+        string.chars.map do |char|
           if char == BRACKET_START
             outside_brackets = false
             char
