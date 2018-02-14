@@ -22,4 +22,12 @@ class PseudolocalizationTest < Minitest::Test
   def test_it_works_with_html_entities
     assert_equal 'Plεεααsεε, <a href="#test">ͼl11ͼϏ hεεrεε</a>!', @backend.translate(:en, 'Please, <a href="#test">click here</a>!', {})
   end
+
+  def test_it_works_with_hashes
+    assert_equal({ name: 'Hεεll00, ω00rld!' }, @backend.translate(:en, { name: 'Hello, world!' }, {}))
+  end
+
+  def test_it_works_with_arrays
+    assert_equal(['Hεεll00, ω00rld!'], @backend.translate(:en, ['Hello, world!'], {}))
+  end
 end
