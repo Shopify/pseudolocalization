@@ -8,34 +8,60 @@ module Pseudolocalization
 
       VOWELS = %w(a e i o u y A E I O U Y)
 
-      LEET = {
+      LETTERS = {
         'a' => 'α',
-        'b' => 'β',
+        'b' => 'ḅ',
         'c' => 'ͼ',
-        'd' => 'd',
-        'e' => 'ε',
+        'd' => 'ḍ',
+        'e' => 'ḛ',
         'f' => 'ϝ',
-        'g' => 'g',
-        'h' => 'h',
-        'i' => '1',
-        'j' => 'ϳ',
-        'k' => 'Ϗ',
-        'l' => 'l',
-        'm' => 'ϻ',
-        'n' => 'ͷ',
-        'o' => '0',
-        'p' => 'ρ',
-        'q' => 'q',
-        'r' => 'r',
-        's' => 's',
-        't' => 'ϯ',
-        'u' => 'u',
-        'v' => 'v',
-        'w' => 'ω',
-        'x' => 'x',
-        'y' => 'ϒ',
-        'z' => 'z',
-      }
+        'g' => 'ḡ',
+        'h' => 'ḥ',
+        'i' => 'ḭ',
+        'j' => 'ĵ',
+        'k' => 'ḳ',
+        'l' => 'ḽ',
+        'm' => 'ṃ',
+        'n' => 'ṇ',
+        'o' => 'ṓ',
+        'p' => 'ṗ',
+        'q' => 'ʠ',
+        'r' => 'ṛ',
+        's' => 'ṡ',
+        't' => 'ṭ',
+        'u' => 'ṵ',
+        'v' => 'ṽ',
+        'w' => 'ẁ',
+        'x' => 'ẋ',
+        'y' => 'ẏ',
+        'z' => 'ẓ',
+        'A' => 'Ḁ',
+        'B' => 'Ḃ',
+        'C' => 'Ḉ',
+        'D' => 'Ḍ',
+        'E' => 'Ḛ',
+        'F' => 'Ḟ',
+        'G' => 'Ḡ',
+        'H' => 'Ḥ',
+        'I' => 'Ḭ',
+        'J' => 'Ĵ',
+        'K' => 'Ḱ',
+        'L' => 'Ḻ',
+        'M' => 'Ṁ',
+        'N' => 'Ṅ',
+        'O' => 'Ṏ',
+        'P' => 'Ṕ',
+        'Q' => 'Ǫ',
+        'R' => 'Ṛ',
+        'S' => 'Ṣ',
+        'T' => 'Ṫ',
+        'U' => 'Ṳ',
+        'V' => 'Ṿ',
+        'W' => 'Ŵ',
+        'X' => 'Ẋ',
+        'Y' => 'Ŷ',
+        'Z' => 'Ż',
+      }.freeze
 
       def initialize(old_backend)
         @old_backend = old_backend
@@ -81,8 +107,8 @@ module Pseudolocalization
           elsif char == BRACKET_END
             outside_brackets = true
             char
-          elsif outside_brackets && LEET.key?(char)
-            ret = LEET[char]
+          elsif outside_brackets && LETTERS.key?(char)
+            ret = LETTERS[char]
             ret = ret * 2 if VOWELS.include?(char)
             ret
           else
