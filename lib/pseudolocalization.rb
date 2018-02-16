@@ -6,7 +6,7 @@ module Pseudolocalization
       BRACKET_START = '<'
       BRACKET_END = '>'
 
-      VOWELS = %w(a e i o u y)
+      VOWELS = %w(a e i o u y A E I O U Y)
 
       LEET = {
         'a' => 'α',
