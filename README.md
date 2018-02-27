@@ -22,19 +22,17 @@ In an attempt to ease this whole process, we created a small tool that gives you
 2. Expand words by doubling all vowels
 3. Use English lookalike UTF8 characters for readability
 
-Our hope is that this tool will allow you to develop with international markets in mind, making it easier to make commerce better for everyone... everywhere.
-
 ## Installation
 
 Add these lines to your application's Gemfile:
 
 ```ruby
 group :development do
-  gem 'pseudolocalization', source: PACKAGE_CLOUD, require: false
+  gem 'pseudolocalization', require: false
 end
 ```
 
-And then execute:
+Execute:
 
     $ bundle
 
@@ -50,11 +48,19 @@ if Rails.env.development? && ENV["I18N_BACKEND"]
 end
 ```
 
-## Resources
+## Usage
+
+When working on internationalization, you can boot your server with the pseudolocalization backend to quickly identify content that doesn't go through the I18n framework.
+
+```bash
+I18N_BACKEND=pseudolocalization bundle exec rails server
+```
+
+
+## Other Resources
 
 * [IBM Globalization Guidelines](http://www-01.ibm.com/software/globalization/guidelines/index.html)
 * [Design for internationalization - Dropbox Design](https://medium.com/dropbox-design/design-for-internationalization-24c12ea6b38f)
-* [Estimating character length of words in other languages](https://docs.google.com/spreadsheets/d/1iHnzfBnMZ-5qKTKD_lx5l3tMPCHkqk_IvKup-EN0aDc)
 * [Pseudolocalization](https://en.wikipedia.org/wiki/Pseudolocalization)
 * [Essential Guide to App Internationalization](https://drive.google.com/open?id=1c6nAw6ttF_uHRq0ZQaGu5gYD0vjq9lHP)
 
