@@ -5,6 +5,8 @@ module Pseudolocalization
     class Backend
       BRACKET_START = '<'
       BRACKET_END = '>'
+      LIQUID_BRACKET_START = '⋖'
+      LIQUID_BRACKET_END = '⋗'
 
       VOWELS = %w(a e i o u y A E I O U Y)
 
@@ -98,13 +100,16 @@ module Pseudolocalization
       def translate_string(string)
         string = string.gsub(/&[a-z]+;/, ' ')
 
+        string = string.gsub(/{{/, '⋖')
+        string = string.gsub(/}}/, '⋗')
+
         outside_brackets = true
 
-        string.chars.map do |char|
-          if char == BRACKET_START
+        pseudostring = string.chars.map do |char|
+          if (char == BRACKET_START) || (char == LIQUID_BRACKET_START)
             outside_brackets = false
             char
-          elsif char == BRACKET_END
+          elsif (char == BRACKET_END) || (char == LIQUID_BRACKET_END)
             outside_brackets = true
             char
           elsif outside_brackets && LETTERS.key?(char)
@@ -115,6 +120,9 @@ module Pseudolocalization
             char
           end
         end.join
+
+        pseudostring = pseudostring.gsub(/⋖/, '{{')
+        pseudostring = pseudostring.gsub(/⋗/, '}}')
       end
     end
   end
