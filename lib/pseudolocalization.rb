@@ -3,8 +3,16 @@ require "pseudolocalization/version"
 module Pseudolocalization
   module I18n
     class Backend
-      BRACKET_START = '<'
-      BRACKET_END = '>'
+      ESCAPED_CHARS = [
+        ['<', '>'],
+        ['{{', '}}'],
+      ]
+
+      ESCAPED_PATTERNS = ESCAPED_CHARS.map do |(a, b)|
+        "#{a}.*?#{b}"
+      end
+
+      ESCAPED_REGEX = Regexp.new("(#{ESCAPED_PATTERNS.join('|')})")
 
       VOWELS = %w(a e i o u y A E I O U Y)
 
@@ -98,21 +106,19 @@ module Pseudolocalization
       def translate_string(string)
         string = string.gsub(/&[a-z]+;/, ' ')
 
-        outside_brackets = true
-
-        string.chars.map do |char|
-          if char == BRACKET_START
-            outside_brackets = false
-            char
-          elsif char == BRACKET_END
-            outside_brackets = true
-            char
-          elsif outside_brackets && LETTERS.key?(char)
-            ret = LETTERS[char]
-            ret = ret * 2 if VOWELS.include?(char)
-            ret
+        string.split(ESCAPED_REGEX).map do |part|
+          if part =~ ESCAPED_REGEX
+            part
           else
-            char
+            part.chars.map do |char|
+              if LETTERS.key?(char)
+                value = LETTERS[char]
+                value = value * 2 if VOWELS.include?(char)
+                value
+              else
+                char
+              end
+            end.join
           end
         end.join
       end

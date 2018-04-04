@@ -30,4 +30,8 @@ class PseudolocalizationTest < Minitest::Test
   def test_it_works_with_arrays
     assert_equal(['Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!'], @backend.translate(:en, ['Hello, world!'], {}))
   end
+
+  def test_it_works_with_liquid_tags
+    assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ {{ firstname }} {{lastname}}!', @backend.translate(:en, 'Hello, world {{ firstname }} {{lastname}}!', {}))
+  end
 end
