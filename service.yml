@@ -1,0 +1,6 @@
+director: christianblais
+owners:
+  - Shopify/i18n
+slack_channels:
+  - intl-dev
+classification: library
