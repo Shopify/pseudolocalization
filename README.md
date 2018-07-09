@@ -1,4 +1,4 @@
-# Pseudolocalization
+# Pseudolocalization [![Build status](https://badge.buildkite.com/ada8dfdbedd49ee400f5035fa8e46b8b40b77bde74ee5a2086.svg)](https://buildkite.com/shopify/pseudolocalization)
 
 > Pseudolocalization (or pseudo-localization) is a software testing method used for testing internationalization aspects of software. Instead of translating the text of the software into a foreign language, as in the process of localization, the textual elements of an application are replaced with an altered version of the original language.
 
