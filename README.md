@@ -63,6 +63,7 @@ I18N_BACKEND=pseudolocalization bundle exec rails server
 * [Design for internationalization - Dropbox Design](https://medium.com/dropbox-design/design-for-internationalization-24c12ea6b38f)
 * [Pseudolocalization](https://en.wikipedia.org/wiki/Pseudolocalization)
 * [Essential Guide to App Internationalization](https://drive.google.com/open?id=1c6nAw6ttF_uHRq0ZQaGu5gYD0vjq9lHP)
+* [Pseudo Localization @ Netflix](https://medium.com/netflix-techblog/pseudo-localization-netflix-12fff76fbcbe)
 
 ## Contributing
 
