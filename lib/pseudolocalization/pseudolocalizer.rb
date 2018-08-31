@@ -3,11 +3,10 @@ module Pseudolocalization
     class Pseudolocalizer
       ESCAPED_REGEX = Regexp.new("(#{
         [
-          %w(<   >),
-          %w({{ }}),
-        ].map do |(a, b)|
-          "#{a}.*?#{b}"
-        end.join('|')
+          "<.*?>",
+          "{{.*?}}",
+          "https?:\/\/\\S+"
+        ].join('|')
       })")
 
       VOWELS = %w(a e i o u y A E I O U Y)
