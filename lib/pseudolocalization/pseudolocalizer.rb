@@ -86,7 +86,7 @@ module Pseudolocalization
         end
 
         def translate_string(string)
-          string = string.gsub(/&[a-z]+;/, ' ')
+          string = string.gsub(/&[a-z&&[^quot]]+;/, ' ')
 
           string.split(ESCAPED_REGEX).map do |part|
             if part =~ ESCAPED_REGEX
