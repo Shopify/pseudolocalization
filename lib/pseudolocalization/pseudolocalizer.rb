@@ -5,7 +5,8 @@ module Pseudolocalization
         [
           "<.*?>",
           "{{.*?}}",
-          "https?:\/\/\\S+"
+          "https?:\/\/\\S+",
+          "&\\S*?;"
         ].join('|')
       })")
 
@@ -86,7 +87,6 @@ module Pseudolocalization
         end
 
         def translate_string(string)
-          string = string.gsub(/&[a-z]+;/, ' ')
 
           string.split(ESCAPED_REGEX).map do |part|
             if part =~ ESCAPED_REGEX
