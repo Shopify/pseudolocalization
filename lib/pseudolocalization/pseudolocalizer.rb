@@ -6,7 +6,7 @@ module Pseudolocalization
           "<.*?>",
           "{{.*?}}",
           "https?:\/\/\\S+",
-          "&.*?;"
+          "&\\S*?;"
         ].join('|')
       })")
 
