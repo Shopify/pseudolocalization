@@ -15,6 +15,10 @@ class PseudolocalizationTest < Minitest::Test
     refute_nil ::Pseudolocalization::VERSION
   end
 
+  def test_it_exposes_old_backend
+    assert_instance_of DummyBackend, @backend.old_backend
+  end
+
   def test_it_pseudolocalizes
     assert_equal 'Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!', @backend.translate(:en, 'Hello, world!', {})
   end
