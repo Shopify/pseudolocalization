@@ -15,8 +15,8 @@ class PseudolocalizationTest < Minitest::Test
     refute_nil ::Pseudolocalization::VERSION
   end
 
-  def test_it_exposes_old_backend
-    assert_instance_of DummyBackend, @backend.old_backend
+  def test_it_exposes_original_backend
+    assert_instance_of DummyBackend, @backend.original_backend
   end
 
   def test_it_pseudolocalizes
