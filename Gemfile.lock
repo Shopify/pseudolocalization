@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pseudolocalization (0.8.0)
+    pseudolocalization (0.8.1)
 
 GEM
   remote: https://rubygems.org/
