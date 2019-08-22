@@ -1,0 +1,18 @@
+version: 1
+update_configs:
+  # Update your Gemfile (& lockfiles) as soon as
+  # new versions are published to the RubyGems registry
+  - package_manager: "ruby:bundler"
+    directory: "/"
+    update_schedule: "weekly"
+
+    # Apply default reviewer and label to created
+    # pull requests
+    default_reviewers:
+      - ChristianBlais
+      - larouxn
+    default_labels:
+      - "Gem upgrades"
+
+    version_requirement_updates: "auto"
+
