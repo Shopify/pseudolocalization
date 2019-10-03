@@ -3,7 +3,7 @@ name: pseudolocalization
 type: ruby
 
 up:
-  - ruby: 2.6.3
+  - ruby: 2.6.5
   - bundler
 
 commands:
