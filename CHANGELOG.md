@@ -3,16 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## [0.8.2] - 2019-10-08
 ### Added
 - Added `ci_url` to `service.yml`. [#27](https://github.com/shopify/pseudolocalization/pull/27)
 - Added this CHANGELOG.md. [#32](https://github.com/Shopify/pseudolocalization/pull/32)
-- Switched to Ruby 2.6.5 for development. [#33](https://github.com/Shopify/pseudolocalization/pull/33)
 
 ### Changed
 - Upgraded `minitest` to v5.12.0. [#29](https://github.com/shopify/pseudolocalization/pull/29)
 - Upgraded `rake` to v13.0.0. [#30](https://github.com/shopify/pseudolocalization/pull/30)
 - Upgraded `minitest` to v5.12.2. [#31](https://github.com/shopify/pseudolocalization/pull/31)
+- Switched to Ruby 2.6.5 for development. [#33](https://github.com/Shopify/pseudolocalization/pull/33)
 
 ### Fixed
 - Properly load README badges. [#28](https://github.com/shopify/pseudolocalization/pull/28)
@@ -42,6 +44,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Please refer to [GitHub releases](https://github.com/Shopify/pseudolocalization/releases) for releases prior to [0.8.0].
 
-[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.8.1...HEAD
+[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.8.2...HEAD
+[0.8.1]: https://github.com/Shopify/pseudolocalization/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/Shopify/pseudolocalization/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/Shopify/pseudolocalization/compare/0.7.0...0.8.0
