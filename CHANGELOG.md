@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - Added `ci_url` to `service.yml`. [#27](https://github.com/shopify/pseudolocalization/pull/27)
-- Added this CHANGELOG.md. []()
+- Added this CHANGELOG.md. [#32](https://github.com/Shopify/pseudolocalization/pull/32)
+- Switched to Ruby 2.6.5 for development. [#33](https://github.com/Shopify/pseudolocalization/pull/33)
 
 ### Changed
 - Upgraded `minitest` to v5.12.0. [#29](https://github.com/shopify/pseudolocalization/pull/29)
