@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Upgraded `minitest` to v5.13.0. [#36](https://github.com/Shopify/pseudolocalization/pull/36)
 - Upgraded `rake` to v13.0.1. [#37](https://github.com/Shopify/pseudolocalization/pull/37)
+- Upgraded `minitest` to v5.14.0. [#38](https://github.com/Shopify/pseudolocalization/pull/38)
 
 ## [0.8.2] - 2019-10-08
 ### Added
