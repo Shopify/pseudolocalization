@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## [0.8.3] - 2020-01-15
 ### Added
 - Added CLA probot to legitimize external contributions. [#35](https://github.com/shopify/pseudolocalization/pull/35)
 
@@ -53,7 +55,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Please refer to [GitHub releases](https://github.com/Shopify/pseudolocalization/releases) for releases prior to [0.8.0].
 
-[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.8.2...HEAD
+[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.8.3...HEAD
+[0.8.3]: https://github.com/Shopify/pseudolocalization/compare/0.8.2...0.8.3
 [0.8.2]: https://github.com/Shopify/pseudolocalization/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/Shopify/pseudolocalization/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/Shopify/pseudolocalization/compare/0.7.0...0.8.0
