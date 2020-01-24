@@ -10,35 +10,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added CLA probot to legitimize external contributions. [#35](https://github.com/shopify/pseudolocalization/pull/35)
 
 ### Changed
-- Upgraded `minitest` to v5.13.0. [#36](https://github.com/Shopify/pseudolocalization/pull/36)
-- Upgraded `rake` to v13.0.1. [#37](https://github.com/Shopify/pseudolocalization/pull/37)
-- Upgraded `minitest` to v5.14.0. [#38](https://github.com/Shopify/pseudolocalization/pull/38)
 - Switched to Ruby 2.7.0 for development. [#39](https://github.com/Shopify/pseudolocalization/pull/39)
-- Upgraded `bundler` to v2.1.4. [#40](https://github.com/Shopify/pseudolocalization/pull/40)
 
 ## [0.8.2] - 2019-10-08
 ### Added
-- Added `ci_url` to `service.yml`. [#27](https://github.com/shopify/pseudolocalization/pull/27)
 - Added this CHANGELOG.md. [#32](https://github.com/Shopify/pseudolocalization/pull/32)
 
 ### Changed
-- Upgraded `minitest` to v5.12.0. [#29](https://github.com/shopify/pseudolocalization/pull/29)
-- Upgraded `rake` to v13.0.0. [#30](https://github.com/shopify/pseudolocalization/pull/30)
-- Upgraded `minitest` to v5.12.2. [#31](https://github.com/shopify/pseudolocalization/pull/31)
 - Switched to Ruby 2.6.5 for development. [#33](https://github.com/Shopify/pseudolocalization/pull/33)
 
-### Fixed
-- Properly load README badges. [#28](https://github.com/shopify/pseudolocalization/pull/28)
-
 ## [0.8.1] - 2019-08-23
-### Added
-- Added Dependabot. (https://github.com/Shopify/pseudolocalization/pull/23)
-
 ### Changed
 - Switched to Ruby 2.6.3 for development. [#22](https://github.com/Shopify/pseudolocalization/pull/22)
 - Switched to Travis CI for CI solutions. [#22](https://github.com/Shopify/pseudolocalization/pull/22)
-- Upgraded to package_cloud 0.3.05. [#24](https://github.com/Shopify/pseudolocalization/pull/24)
-- Upgraded to Rake 12.3. [#25](https://github.com/Shopify/pseudolocalization/pull/25)
 
 ### Removed
 - Removed Shopify Build CI. [#22](https://github.com/Shopify/pseudolocalization/pull/22)
