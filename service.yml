@@ -2,7 +2,6 @@ org_line: International Growth
 director: christianblais
 owners:
 - Shopify/intl-languages
-- Shopify/intl-localization
 - Shopify/intl-eng
 slack_channels:
   - intl-dev
