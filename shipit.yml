@@ -4,6 +4,7 @@ ci:
     - 'Ruby 2.5 Gemfile'
     - 'Ruby 2.6 Gemfile'
     - 'Ruby 2.7 Gemfile'
+    - 'Ruby 3.0 Gemfile'
 deploy:
   override:
     - bundle exec rake build
