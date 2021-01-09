@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Unreleased
 ### Changed
 - Switched to Ruby 2.7.1 for development. [#45](https://github.com/Shopify/pseudolocalization/pull/45)
+- Switched to GitHub Actions for CI. [#52](https://github.com/Shopify/pseudolocalization/pull/52)
 
 ## [0.8.3] - 2020-01-15
 ### Added

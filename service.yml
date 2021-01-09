@@ -6,4 +6,4 @@ owners:
 slack_channels:
   - intl-dev
 classification: library
-ci_url: https://travis-ci.org/Shopify/pseudolocalization
+ci_url: https://github.com/Shopify/pseudolocalization/workflows/CI

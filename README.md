@@ -1,4 +1,4 @@
-# Pseudolocalization [![Version][gem]][gem_url] [![Build Status](https://travis-ci.org/Shopify/pseudolocalization.svg?branch=master)](https://travis-ci.org/Shopify/pseudolocalization)
+# Pseudolocalization [![Version][gem]][gem_url] [![Build Status](https://github.com/Shopify/pseudolocalization/workflows/CI/badge.svg?branch=master)](https://github.com/Shopify/pseudolocalization/actions?query=workflow%3ACI)
 
 [gem]: https://badge.fury.io/rb/pseudolocalization.svg
 [gem_url]: https://rubygems.org/gems/pseudolocalization
