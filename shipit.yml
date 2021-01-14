@@ -1,6 +1,9 @@
 ci:
   require:
-    - "Travis CI - Branch"
+    - 'CI / Ruby 2.4 Gemfile (push)'
+    - 'CI / Ruby 2.5 Gemfile (push)'
+    - 'CI / Ruby 2.6 Gemfile (push)'
+    - 'CI / Ruby 2.7 Gemfile (push)'
 deploy:
   override:
     - bundle exec rake build
