@@ -53,4 +53,11 @@ class PseudolocalizationTest < Minitest::Test
   def test_it_works_with_templates
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ %{firstname} %{lastname}!', @backend.translate(:en, 'Hello, world %{firstname} %{lastname}!', {}))
   end
+
+  def test_it_allows_ignoring_cetain_keys
+    @backend.ignores = ['Ignore*', /Clifford.$/]
+
+    assert_equal('Ignore me, World!', @backend.translate(:en, 'Ignore me, World!', {}))
+    assert_equal('Ignore me, as well Clifford!', @backend.translate(:en, 'Ignore me, as well Clifford!', {}))
+  end
 end
