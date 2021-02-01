@@ -14,6 +14,10 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Internationalization development tool to help identify missing translations}
   spec.homepage      = "https://github.com/Shopify/pseudolocalization"
 
+  spec.metadata = {
+    'allowed_push_host' => 'https://rubygems.org'
+  }
+
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
