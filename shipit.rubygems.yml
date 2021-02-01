@@ -5,7 +5,3 @@ ci:
     - 'Ruby 2.6 Gemfile'
     - 'Ruby 2.7 Gemfile'
     - 'Ruby 3 Gemfile'
-deploy:
-  override:
-    - bundle exec rake build
-    - bundle exec package_cloud push shopify/gems pkg/*.gem
