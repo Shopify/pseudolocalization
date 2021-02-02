@@ -1,9 +1,7 @@
-org_line: International Growth
-director: christianblais
+org_line: Build
 owners:
-- Shopify/intl-languages
-- Shopify/intl-eng
+  - Shopify/intl-languages
 slack_channels:
-  - intl-dev
+  - help-i18n-and-translation
 classification: library
 ci_url: https://github.com/Shopify/pseudolocalization/workflows/CI
