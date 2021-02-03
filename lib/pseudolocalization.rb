@@ -43,8 +43,8 @@ module Pseudolocalization
           when String
             File.fnmatch(ignore, key.to_s)
           else
-            Rails.logger.tagged('Pseudolocalization I18n').error 'Ignore type unsupported. Expects an array of (mixed) Regexp or Strings.'
-            return false
+            Rails.logger.tagged('Pseudolocalization I18n').error('Ignore type unsupported. Expects an array of (mixed) Regexp or Strings.')
+            false
           end
         end
       end
