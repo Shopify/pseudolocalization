@@ -9,5 +9,4 @@ update_configs:
           update_type: "all"
     version_requirement_updates: "auto"
     default_reviewers:
-      - larouxn
-      - ChristianBlais
+      - Shopify/intl-languages
