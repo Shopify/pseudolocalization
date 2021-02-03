@@ -1,6 +1,6 @@
 # Pseudolocalization [![Version][gem]][gem_url] [![Build Status](https://github.com/Shopify/pseudolocalization/workflows/CI/badge.svg?branch=master)](https://github.com/Shopify/pseudolocalization/actions?query=workflow%3ACI)
 
-[gem]: https://badge.fury.io/rb/pseudolocalization.svg
+[gem]: https://badgen.net/rubygems/v/pseudolocalization
 [gem_url]: https://rubygems.org/gems/pseudolocalization
 
 > Pseudolocalization (or pseudo-localization) is a software testing method used for testing internationalization aspects of software. Instead of translating the text of the software into a foreign language, as in the process of localization, the textual elements of an application are replaced with an altered version of the original language.
