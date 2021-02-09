@@ -59,6 +59,13 @@ When working on internationalization, you can boot your server with the pseudolo
 I18N_BACKEND=pseudolocalization bundle exec rails server
 ```
 
+### Ignoring specific keys
+You may wish to have the backend ignore specific keys. These may be configured via an array, `ignores`, on the backend. The array can contain a mix of strings (with globbing allowed) and/or Regexes.
+
+```ruby
+I18n.backend = Pseudolocalization::I18n::Backend.new(I18n.backend)
+I18n.backend.ignores = ['ignored*', /Waldo.$/]
+```
 
 ## Other Resources
 
