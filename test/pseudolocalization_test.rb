@@ -15,6 +15,12 @@ class PseudolocalizationTest < Minitest::Test
     refute_nil ::Pseudolocalization::VERSION
   end
 
+  def test_that_it_supports_block_initialization
+    Pseudolocalization::I18n::Backend.new(DummyBackend.new) do |instance|
+      assert_instance_of Pseudolocalization::I18n::Backend, instance
+    end
+  end
+
   def test_it_exposes_original_backend
     assert_instance_of DummyBackend, @backend.original_backend
   end
@@ -49,8 +55,16 @@ class PseudolocalizationTest < Minitest::Test
   def test_it_works_with_liquid_tags
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ {{ firstname }} {{lastname}}!', @backend.translate(:en, 'Hello, world {{ firstname }} {{lastname}}!', {}))
   end
-  
+
   def test_it_works_with_templates
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ %{firstname} %{lastname}!', @backend.translate(:en, 'Hello, world %{firstname} %{lastname}!', {}))
+  end
+
+  def test_it_allows_ignoring_cetain_keys
+    @backend.ignores = ['Ignore*', /Clifford.$/]
+
+    assert_equal('Ignore me, World!', @backend.translate(:en, 'Ignore me, World!', {}))
+    assert_equal('Ignore me, as well Clifford!', @backend.translate(:en, 'Ignore me, as well Clifford!', {}))
+    assert_equal(['Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!'], @backend.translate(:en, ['Hello, world!'], {}))
   end
 end
