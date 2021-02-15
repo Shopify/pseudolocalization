@@ -1,3 +1,9 @@
+deploy:
+  override:
+    - bundle exec rake build
+    - gem push --key github_registry --host https://rubygems.pkg.github.com/shopify pkg/*.gem
+    - bundle exec package_cloud push shopify/gems pkg/*.gem
+
 ci:
   require:
     - 'Ruby 2.4 Gemfile'
