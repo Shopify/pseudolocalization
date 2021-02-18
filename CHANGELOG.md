@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+Nil.
+
+## [0.9.0] - 2021-02-17
+### Added
 - Added support for ignoring specific translation keys [#59](https://github.com/Shopify/pseudolocalization/pull/59)
 
 ## [0.8.4] - 2021-01-15
@@ -48,7 +52,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Please refer to [GitHub releases](https://github.com/Shopify/pseudolocalization/releases) for releases prior to [0.8.0].
 
-[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.8.4...HEAD
+[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/Shopify/pseudolocalization/compare/0.8.4...0.9.0
 [0.8.4]: https://github.com/Shopify/pseudolocalization/compare/0.8.3...0.8.4
 [0.8.3]: https://github.com/Shopify/pseudolocalization/compare/0.8.2...0.8.3
 [0.8.2]: https://github.com/Shopify/pseudolocalization/compare/0.8.1...0.8.2
