@@ -1,7 +1,4 @@
-org_line: Build
-owners:
-  - Shopify/intl-languages
 slack_channels:
-  - help-i18n-and-translation
+- help-i18n-and-translation
 classification: library
 ci_url: https://github.com/Shopify/pseudolocalization/workflows/CI
