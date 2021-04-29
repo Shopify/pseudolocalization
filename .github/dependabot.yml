@@ -1,0 +1,14 @@
+version: 2
+
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "10:00"
+    timezone: America/Toronto
+  open-pull-requests-limit: 99
+  reviewers:
+  - Shopify/intl-languages
+  registries:
+  - rubygems-server-pkgs-shopify-io
