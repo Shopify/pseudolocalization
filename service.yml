@@ -1,4 +1,2 @@
-slack_channels:
-- help-i18n-and-translation
 classification: library
 ci_url: https://github.com/Shopify/pseudolocalization/workflows/CI
