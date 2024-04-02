@@ -10,6 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["christ.blais@gmail.com"]
   spec.licenses      = ['MIT']
 
+  spec.required_ruby_version = ">= 2.7"
+
   spec.summary       = %q{Internationalization development tool}
   spec.description   = %q{Internationalization development tool to help identify missing translations}
   spec.homepage      = "https://github.com/Shopify/pseudolocalization"
