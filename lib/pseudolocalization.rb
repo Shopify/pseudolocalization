@@ -31,6 +31,13 @@ module Pseudolocalization
         ::Pseudolocalization::I18n::Pseudolocalizer.pseudolocalize(original_backend.translate(locale, key, options))
       end
 
+      def translations
+        original = original_backend.translations
+        original.transform_values do |locale_translations|
+          pseudolocalize_node(locale_translations)
+        end
+      end
+
       private
 
       def key_ignored?(key)
@@ -47,6 +54,22 @@ module Pseudolocalization
             false
           end
         end
+      end
+
+      def pseudolocalize_node(node, scope = [])
+        if node.is_a?(Hash)
+          node.each_with_object({}) do |(key, value), memo|
+            memo[key] = pseudolocalize_node(value, scope + [key])
+          end
+        elsif (node.is_a?(String) || node.is_a?(Array)) && !key_ignored?(scope.join('.'))
+          ::Pseudolocalization::I18n::Pseudolocalizer.pseudolocalize(node)
+        else
+          node
+        end
+      end
+
+      def init_translations
+        original_backend.send(:init_translations)
       end
     end
   end
