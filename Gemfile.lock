@@ -7,7 +7,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.24.0)
-    rake (13.0.3)
+    rake (13.2.1)
 
 PLATFORMS
   ruby
