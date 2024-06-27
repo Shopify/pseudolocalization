@@ -2,6 +2,12 @@ require "test_helper"
 
 class PseudolocalizationTest < Minitest::Test
   class DummyBackend
+    attr_accessor :translations
+
+    def initialize(translations = {})
+      @translations = translations
+    end
+
     def translate(_locale, string, _options)
       string
     end
@@ -66,5 +72,53 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal('Ignore me, World!', @backend.translate(:en, 'Ignore me, World!', {}))
     assert_equal('Ignore me, as well Clifford!', @backend.translate(:en, 'Ignore me, as well Clifford!', {}))
     assert_equal(['Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!'], @backend.translate(:en, ['Hello, world!'], {}))
+  end
+
+  def test_it_exposes_pseudo_localized_translations
+    translations = {
+      en: {
+        date: {
+          day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        },
+        hello: 'Hello, world!',
+        ignored: {
+          foobar: "Foobar"
+        }
+      },
+      es: {
+        date: {
+          day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+        },
+        hello: 'Hola, mundo!',
+        ignored: {
+          foobar: "Foobar"
+        }
+      }
+    }
+    expected = {
+      en: {
+        date: {
+          day_names: ["Ṣṵṵṇḍααẏẏ", "Ṁṓṓṇḍααẏẏ", "Ṫṵṵḛḛṡḍααẏẏ", "Ŵḛḛḍṇḛḛṡḍααẏẏ", "Ṫḥṵṵṛṡḍααẏẏ", "Ḟṛḭḭḍααẏẏ"],
+        },
+        hello: "Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!",
+        ignored: {
+          foobar: "Foobar"
+        }
+      },
+      es: {
+        date: {
+          day_names: ["Ḍṓṓṃḭḭṇḡṓṓ", "Ḻṵṵṇḛḛṡ", "Ṁααṛṭḛḛṡ", "Ṁḭḭéṛͼṓṓḽḛḛṡ", "Ĵṵṵḛḛṽḛḛṡ", "Ṿḭḭḛḛṛṇḛḛṡ"],
+        },
+        hello: "Ḥṓṓḽαα, ṃṵṵṇḍṓṓ!",
+        ignored: {
+          foobar: "Foobar"
+        }
+      }
+    }
+
+    @backend = Pseudolocalization::I18n::Backend.new(DummyBackend.new(translations))
+    @backend.ignores = ["ignored*"]
+
+    assert_equal(expected, @backend.translations)
   end
 end
