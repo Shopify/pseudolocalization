@@ -1,6 +1,6 @@
 # Pseudolocalization
 
-[![Version][gem]][gem_url] [![Build Status](https://github.com/Shopify/pseudolocalization/workflows/CI/badge.svg?branch=master)](https://github.com/Shopify/pseudolocalization/actions?query=workflow%3ACI)
+[![Version][gem]][gem_url] [![Build Status](https://github.com/Shopify/pseudolocalization/workflows/CI/badge.svg?branch=main)](https://github.com/Shopify/pseudolocalization/actions?query=workflow%3ACI)
 
 [About this repo](#about-this-repo) | [How to use this repo](#how-to-use-this-repo) | [Contribute to this repo](#contribute-to-this-repo)
 
