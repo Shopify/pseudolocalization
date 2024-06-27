@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Unreleased
 Nil.
 
+## [0.9.1] - 2024-06-27
+### Added
+- Added support for pseudolocalized translations [#82](https://github.com/Shopify/pseudolocalization/pull/82)
+
 ## [0.9.0] - 2021-02-17
 ### Added
 - Added support for ignoring specific translation keys [#59](https://github.com/Shopify/pseudolocalization/pull/59)
@@ -52,7 +56,8 @@ Nil.
 
 Please refer to [GitHub releases](https://github.com/Shopify/pseudolocalization/releases) for releases prior to [0.8.0].
 
-[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.9.0...HEAD
+[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.9.1...HEAD
+[0.9.1]: https://github.com/Shopify/pseudolocalization/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/Shopify/pseudolocalization/compare/0.8.4...0.9.0
 [0.8.4]: https://github.com/Shopify/pseudolocalization/compare/0.8.3...0.8.4
 [0.8.3]: https://github.com/Shopify/pseudolocalization/compare/0.8.2...0.8.3
