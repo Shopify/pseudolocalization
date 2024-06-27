@@ -10,5 +10,3 @@ updates:
   open-pull-requests-limit: 99
   reviewers:
   - Shopify/intl-languages
-  registries:
-  - rubygems-server-pkgs-shopify-io
