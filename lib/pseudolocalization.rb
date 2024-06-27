@@ -61,7 +61,7 @@ module Pseudolocalization
           node.each_with_object({}) do |(key, value), memo|
             memo[key] = pseudolocalize_node(value, scope + [key])
           end
-        elsif (node.is_a?(String) || node.is_a?(Array)) && !key_ignored?(scope.join('.'))
+        elsif !key_ignored?(scope.join('.'))
           ::Pseudolocalization::I18n::Pseudolocalizer.pseudolocalize(node)
         else
           node
