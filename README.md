@@ -9,7 +9,7 @@
 
 Internationalization is a hard and tedious process. Different character sets, different average word length, different pluralization rules... There's a lot going on and it's impossible to test against all possible scenarios. As a side effect, most of us will simply test against one or two known languages and hope for the best. Unfortunately, this often leads to broken UI elements, texts going out of bounds, or forgotten non-translated strings making their way into a final release.
 
-As an example, let's examine the string "Set the power switch to 0.";
+As an example, let's examine the string "Set the power switch to 0.":
 
 | Language | String | Characters | Percentage |
 |----------|--------|------------|------------|
@@ -24,6 +24,12 @@ In an attempt to ease this whole process, we created a small tool that gives you
 1. Identify untranslated strings
 2. Expand words by doubling all vowels
 3. Use English lookalike UTF8 characters for readability
+
+For the example above, this looks like:
+
+| Language | String | Characters | Percentage |
+|----------|--------|------------|------------|
+| Pseudo-English | Ṣḛḛṭ ṭḥḛḛ ṗṓṓẁḛḛṛ ṡẁḭḭṭͼḥ ṭṓṓ 0. | 32 chars | 23% more
 
 ## How to use this repo
 ### Installation
