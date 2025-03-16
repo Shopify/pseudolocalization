@@ -74,6 +74,13 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal(['Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!'], @backend.translate(:en, ['Hello, world!'], {}))
   end
 
+  def test_it_allows_only_cetain_locales
+    @backend.only_locales = [:en]
+
+    assert_equal('Ignore me, World!', @backend.translate(:fr, 'Ignore me, World!', {}))
+    assert_equal(['Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ!'], @backend.translate(:en, ['Hello, world!'], {}))
+  end
+
   def test_it_exposes_pseudo_localized_translations
     translations = {
       en: {
