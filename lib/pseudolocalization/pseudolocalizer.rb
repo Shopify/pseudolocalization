@@ -1,13 +1,26 @@
 module Pseudolocalization
   module I18n
     class Pseudolocalizer
+      # Tokens that must be preserved verbatim: HTML tags, Liquid output tags,
+      # Ruby interpolation templates, URLs, and HTML entities.
+      #
+      # Each bracketed token uses a negated character class that stops at its
+      # own delimiters instead of a lazy wildcard (`<.*?>`). With a wildcard,
+      # an opener that is never closed (e.g. `"<" * n`) makes a backtracking
+      # engine scan to the end of the string, fail, and retry from the next
+      # opener, which is quadratic in the input length (CWE-1333). Bounding
+      # the interior means an unterminated opener fails after one step.
+      #
+      # `\n` is excluded to mirror `.`, so a token still never spans a line.
+      # Ruby >= 3.2 already matches the previous pattern in linear time via
+      # regex memoization; this change makes that true on every engine.
       ESCAPED_REGEX = Regexp.new("(#{
         [
-          "<.*?>",
-          "{{.*?}}",
-          "%{.*?}",
+          "<[^<>\\n]*>",
+          "{{[^{}\\n]*}}",
+          "%{[^{}\\n]*}",
           "https?:\/\/\\S+",
-          "&\\S*?;"
+          "&[^\\s&;]*;"
         ].join('|')
       })")
 

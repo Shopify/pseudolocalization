@@ -66,6 +66,54 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ %{firstname} %{lastname}!', @backend.translate(:en, 'Hello, world %{firstname} %{lastname}!', {}))
   end
 
+  def test_markup_never_spans_a_newline
+    # `.` never matched "\n" and the bounded character classes exclude it too,
+    # so a tag or Liquid tag split across lines is still treated as text.
+    assert_equal("αα <ṡṗααṇ\nͼḽααṡṡ=\"ẋ\">ḅ</span>", @backend.translate(:en, "a <span\nclass=\"x\">b</span>", {}))
+    assert_equal("αα {{\n ṇααṃḛḛ }} ḅ", @backend.translate(:en, "a {{\n name }} b", {}))
+  end
+
+  def test_unterminated_openers_are_pseudolocalized_as_text
+    assert_equal('αα <ḅ ͼ', @backend.translate(:en, 'a <b c', {}))
+    assert_equal('αα {{ ḅ ͼ', @backend.translate(:en, 'a {{ b c', {}))
+    assert_equal('αα %{ḅ ͼ', @backend.translate(:en, 'a %{b c', {}))
+    assert_equal('αα &ḅ ͼ', @backend.translate(:en, 'a &b c', {}))
+  end
+
+  def test_a_nested_opener_ends_the_outer_token
+    # A token containing a delimiter of its own kind is not swallowed up to the
+    # first closer; the inner well-formed token is preserved instead.
+    assert_equal('αα <ḅ <i>ͼ</i> ḍ', @backend.translate(:en, 'a <b <i>c</i> d', {}))
+    assert_equal('αα {{ ḅ | ϝ: {ͼ} }} ḍ', @backend.translate(:en, 'a {{ b | f: {c} }} d', {}))
+    assert_equal('αα %{ḅ{ͼ} ḍ', @backend.translate(:en, 'a %{b{c} d', {}))
+    assert_equal('αα &ḅ&amp; ͼ', @backend.translate(:en, 'a &b&amp; c', {}))
+
+    # This includes a raw `<` inside a quoted attribute value. HTML serializers
+    # emit it as `&lt;`; a literal `<` there is treated like any other nested
+    # opener. (`>` inside an attribute value already ended the tag before.)
+    assert_equal('<αα ṭḭḭṭḽḛḛ="αα < b">ḽḭḭṇḳ</a>', @backend.translate(:en, '<a title="a < b">link</a>', {}))
+  end
+
+  def test_many_unterminated_openers_complete_in_linear_time
+    # Regression guard for CWE-1333. With the former lazy wildcards (`<.*?>`),
+    # every unterminated opener re-scanned the rest of the string, so 100_000
+    # openers took tens of seconds on a backtracking engine (Ruby < 3.2).
+    # The bounded pattern finishes in milliseconds on every engine.
+    require 'benchmark'
+
+    ['<', '{{', '%{', '&'].each do |opener|
+      input = opener * 100_000
+      elapsed = Benchmark.realtime { assert_equal(input, @backend.translate(:en, input, {})) }
+      assert_operator elapsed, :<, 2.0, "#{opener.inspect} * 100_000 took #{elapsed.round(2)}s"
+    end
+  end
+
+  def test_escaped_regex_is_linear_time
+    skip 'Regexp.linear_time? was added in Ruby 3.2' unless Regexp.respond_to?(:linear_time?)
+
+    assert Regexp.linear_time?(Pseudolocalization::I18n::Pseudolocalizer::ESCAPED_REGEX)
+  end
+
   def test_it_allows_ignoring_cetain_keys
     @backend.ignores = ['Ignore*', /Clifford.$/]
 
