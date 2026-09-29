@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Ruby ${{ matrix.version }} ${{ matrix.gemfile }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     strategy:
@@ -31,7 +31,7 @@ jobs:
         gemfile:
           - Gemfile
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Ruby ${{ matrix.version }}
         uses: ruby/setup-ruby@v1
