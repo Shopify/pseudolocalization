@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 ### Fixed
-- `ESCAPED_REGEX` no longer does polynomial work on strings with many unterminated `<`, `{{`, `%{` or `&` openers (CWE-1333). The lazy wildcards were replaced with negated character classes bounded by each token's own delimiters. Well-formed markup, Liquid tags, templates, URLs and entities tokenize identically; the only observable change is that a token containing a nested delimiter of its own kind (e.g. `<b <i>x</i>`, `{{ a {b} }}`, `&a&amp;`) is no longer swallowed up to the first closer.
+- Fixed slow matching in `ESCAPED_REGEX` on strings with many unclosed `<`, `{{`, `%{` or `&` (CWE-1333). Lazy wildcards became character classes bounded by each token's own delimiters. Output is unchanged for well-formed input; a token containing a nested opener of its own kind (`<b <i>x</i>`, `{{ a {b} }}`, `&a&amp;`) is no longer swallowed up to the first closer.
 
 ## [0.9.1] - 2024-06-27
 ### Added
