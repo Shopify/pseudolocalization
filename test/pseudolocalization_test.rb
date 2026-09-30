@@ -92,11 +92,11 @@ class PseudolocalizationTest < Minitest::Test
 
   def test_many_unterminated_openers_complete_in_linear_time
     # CWE-1333 guard. The old `<.*?>` took seconds here on Ruby < 3.2.
-    require 'benchmark'
-
     ['<', '{{', '%{', '&'].each do |opener|
       input = opener * 100_000
-      elapsed = Benchmark.realtime { assert_equal(input, @backend.translate(:en, input, {})) }
+      started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      assert_equal(input, @backend.translate(:en, input, {}))
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started
       assert_operator elapsed, :<, 2.0, "#{opener.inspect} * 100_000 took #{elapsed.round(2)}s"
     end
   end
