@@ -1,8 +1,6 @@
 module Pseudolocalization
   module I18n
     class Pseudolocalizer
-      # Bounded on purpose: an unclosed opener fails in one step instead of
-      # rescanning the rest of the string. `\n` is excluded to match `.`.
       ESCAPED_REGEX = Regexp.new("(#{
         [
           "<[^<>\\n]*>",
