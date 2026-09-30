@@ -1,7 +1,8 @@
 ci:
   require:
-    - 'Ruby 2.4 Gemfile'
-    - 'Ruby 2.5 Gemfile'
-    - 'Ruby 2.6 Gemfile'
     - 'Ruby 2.7 Gemfile'
-    - 'Ruby 3 Gemfile'
+    - 'Ruby 3.0 Gemfile'
+    - 'Ruby 3.1 Gemfile'
+    - 'Ruby 3.2 Gemfile'
+    - 'Ruby 3.3 Gemfile'
+    - 'Ruby 3.4 Gemfile'
