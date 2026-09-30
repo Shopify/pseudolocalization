@@ -83,11 +83,15 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal('αα {{ ḅ | ϝ: {ͼ} }} ḍ', @backend.translate(:en, 'a {{ b | f: {c} }} d', {}))
     assert_equal('αα %{ḅ{ͼ} ḍ', @backend.translate(:en, 'a %{b{c} d', {}))
     assert_equal('αα &ḅ&amp; ͼ', @backend.translate(:en, 'a &b&amp; c', {}))
-    assert_equal('<αα ṭḭḭṭḽḛḛ="αα < b">ḽḭḭṇḳ</a>', @backend.translate(:en, '<a title="a < b">link</a>', {}))
+  end
+
+  def test_quoted_attribute_values_can_contain_angle_brackets
+    assert_equal('<a title="a < b">ḽḭḭṇḳ</a>', @backend.translate(:en, '<a title="a < b">link</a>', {}))
+    assert_equal("<a title='a > b'>ḽḭḭṇḳ</a>", @backend.translate(:en, "<a title='a > b'>link</a>", {}))
   end
 
   def test_many_unterminated_openers_complete_in_linear_time
-    ['<', '{{', '%{', '&'].each do |opener|
+    ['<', '<"', "<'", '{{', '%{', '&'].each do |opener|
       input = opener * 100_000
       started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
       assert_equal(input, @backend.translate(:en, input, {}))

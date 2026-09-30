@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 ### Fixed
-- Fixed slow matching in `ESCAPED_REGEX` on strings with many unclosed `<`, `{{`, `%{` or `&` (CWE-1333). Lazy wildcards became character classes bounded by each token's own delimiters. Output is unchanged for well-formed input; a token containing a nested opener of its own kind (`<b <i>x</i>`, `{{ a {b} }}`, `&a&amp;`) is no longer swallowed up to the first closer.
+- Fixed slow matching in `ESCAPED_REGEX` on strings with many unclosed `<`, `{{`, `%{` or `&` (CWE-1333). Lazy wildcards became character classes bounded by each token's own delimiters. Output is unchanged or improved for well-formed input; a token containing a nested opener of its own kind (`<b <i>x</i>`, `{{ a {b} }}`, `&a&amp;`) is no longer swallowed up to the first closer. Quoted HTML attribute values may now contain `<` and `>`.
 
 ## [0.9.1] - 2024-06-27
 ### Added
