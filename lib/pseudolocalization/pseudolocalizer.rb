@@ -3,11 +3,11 @@ module Pseudolocalization
     class Pseudolocalizer
       ESCAPED_REGEX = Regexp.new("(#{
         [
-          "<.*?>",
-          "{{.*?}}",
-          "%{.*?}",
+          "<[^<>\"'\\n]*(?:(?:\"[^\"\\n]*\"|'[^'\\n]*')[^<>\"'\\n]*)*>",
+          "{{[^{}\\n]*}}",
+          "%{[^{}\\n]*}",
           "https?:\/\/\\S+",
-          "&\\S*?;"
+          "&[^\\s&;]*;"
         ].join('|')
       })")
 

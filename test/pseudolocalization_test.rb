@@ -66,6 +66,46 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ %{firstname} %{lastname}!', @backend.translate(:en, 'Hello, world %{firstname} %{lastname}!', {}))
   end
 
+  def test_markup_never_spans_a_newline
+    assert_equal("αα <ṡṗααṇ\nͼḽααṡṡ=\"ẋ\">ḅ</span>", @backend.translate(:en, "a <span\nclass=\"x\">b</span>", {}))
+    assert_equal("αα {{\n ṇααṃḛḛ }} ḅ", @backend.translate(:en, "a {{\n name }} b", {}))
+  end
+
+  def test_unterminated_openers_are_pseudolocalized_as_text
+    assert_equal('αα <ḅ ͼ', @backend.translate(:en, 'a <b c', {}))
+    assert_equal('αα {{ ḅ ͼ', @backend.translate(:en, 'a {{ b c', {}))
+    assert_equal('αα %{ḅ ͼ', @backend.translate(:en, 'a %{b c', {}))
+    assert_equal('αα &ḅ ͼ', @backend.translate(:en, 'a &b c', {}))
+  end
+
+  def test_a_nested_opener_ends_the_outer_token
+    assert_equal('αα <ḅ <i>ͼ</i> ḍ', @backend.translate(:en, 'a <b <i>c</i> d', {}))
+    assert_equal('αα {{ ḅ | ϝ: {ͼ} }} ḍ', @backend.translate(:en, 'a {{ b | f: {c} }} d', {}))
+    assert_equal('αα %{ḅ{ͼ} ḍ', @backend.translate(:en, 'a %{b{c} d', {}))
+    assert_equal('αα &ḅ&amp; ͼ', @backend.translate(:en, 'a &b&amp; c', {}))
+  end
+
+  def test_quoted_attribute_values_can_contain_angle_brackets
+    assert_equal('<a title="a < b">ḽḭḭṇḳ</a>', @backend.translate(:en, '<a title="a < b">link</a>', {}))
+    assert_equal("<a title='a > b'>ḽḭḭṇḳ</a>", @backend.translate(:en, "<a title='a > b'>link</a>", {}))
+  end
+
+  def test_many_unterminated_openers_complete_in_linear_time
+    ['<', '<"', "<'", '{{', '%{', '&'].each do |opener|
+      input = opener * 100_000
+      started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      assert_equal(input, @backend.translate(:en, input, {}))
+      elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started
+      assert_operator elapsed, :<, 2.0, "#{opener.inspect} * 100_000 took #{elapsed.round(2)}s"
+    end
+  end
+
+  def test_escaped_regex_is_linear_time
+    skip 'Regexp.linear_time? was added in Ruby 3.2' unless Regexp.respond_to?(:linear_time?)
+
+    assert Regexp.linear_time?(Pseudolocalization::I18n::Pseudolocalizer::ESCAPED_REGEX)
+  end
+
   def test_it_allows_ignoring_cetain_keys
     @backend.ignores = ['Ignore*', /Clifford.$/]
 
