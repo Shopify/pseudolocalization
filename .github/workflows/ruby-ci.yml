@@ -11,21 +11,27 @@ on:
 jobs:
   build:
     name: Ruby ${{ matrix.version }} ${{ matrix.gemfile }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     strategy:
+      # Report every Ruby independently. Without this, one failing job
+      # cancels its siblings and hides their results.
+      fail-fast: false
       matrix:
+        # Quoted on purpose. Unquoted, YAML reads 3.0 as the number 3 and
+        # setup-ruby then installs "latest 3.x" instead of Ruby 3.0.
         version:
-          - 2.7
-          - 3.0
-          - 3.1
-          - 3.2
-          - 3.3
+          - '2.7'
+          - '3.0'
+          - '3.1'
+          - '3.2'
+          - '3.3'
+          - '3.4'
         gemfile:
           - Gemfile
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - name: Set up Ruby ${{ matrix.version }}
         uses: ruby/setup-ruby@v1
