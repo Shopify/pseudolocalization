@@ -66,9 +66,42 @@ class PseudolocalizationTest < Minitest::Test
     assert_equal('Ḥḛḛḽḽṓṓ, ẁṓṓṛḽḍ %{firstname} %{lastname}!', @backend.translate(:en, 'Hello, world %{firstname} %{lastname}!', {}))
   end
 
-  def test_markup_never_spans_a_newline
-    assert_equal("αα <ṡṗααṇ\nͼḽααṡṡ=\"ẋ\">ḅ</span>", @backend.translate(:en, "a <span\nclass=\"x\">b</span>", {}))
-    assert_equal("αα {{\n ṇααṃḛḛ }} ḅ", @backend.translate(:en, "a {{\n name }} b", {}))
+  def test_markup_may_span_a_newline
+    assert_equal("αα <span\nclass=\"x\">ḅ</span>", @backend.translate(:en, "a <span\nclass=\"x\">b</span>", {}))
+    assert_equal("αα {{\n name }} ḅ", @backend.translate(:en, "a {{\n name }} b", {}))
+    assert_equal("αα <!--\n note\n--> ḅ", @backend.translate(:en, "a <!--\n note\n--> b", {}))
+  end
+
+  def test_a_less_than_sign_that_does_not_start_a_tag_is_text
+    assert_equal('3<4 ααṇḍ 5>2', @backend.translate(:en, '3<4 and 5>2', {}))
+    assert_equal('αα < ḅ <br/> ͼ > ḍ', @backend.translate(:en, 'a < b <br/> c > d', {}))
+    assert_equal("Ṫααḡ '<%{tag_name}>' ḭḭṡ ṇṓṓṭ ṗḛḛṛṃḭḭṭṭḛḛḍ", @backend.translate(:en, "Tag '<%{tag_name}>' is not permitted", {}))
+  end
+
+  def test_html_comments_and_doctype_are_preserved
+    assert_equal("<!-- don't > \"do\" that --> ẋ", @backend.translate(:en, "<!-- don't > \"do\" that --> x", {}))
+    assert_equal('<!DOCTYPE html> ẋ', @backend.translate(:en, '<!DOCTYPE html> x', {}))
+  end
+
+  def test_liquid_strings_may_contain_braces
+    assert_equal('{{ x | default: "{" }} ẋ', @backend.translate(:en, '{{ x | default: "{" }} x', {}))
+    assert_equal("{{ d | date: '%B %e, %Y' }} ẋ", @backend.translate(:en, "{{ d | date: '%B %e, %Y' }} x", {}))
+  end
+
+  def test_liquid_tags_are_preserved
+    assert_equal('ṎṎṛḍḛḛṛ {{ name }}{% if customer.name %} ṗḽααͼḛḛḍ ḅẏẏ {{ customer.name }}{% endif %}',
+      @backend.translate(:en, 'Order {{ name }}{% if customer.name %} placed by {{ customer.name }}{% endif %}', {}))
+    assert_equal('{%- if a contains "50%" -%}ẋ{% endif %}', @backend.translate(:en, '{%- if a contains "50%" -%}x{% endif %}', {}))
+    assert_equal("ṡẏẏṇṭααẋ ('{{', '}}', '{%' ṓṓṛ '%}')", @backend.translate(:en, "syntax ('{{', '}}', '{%' or '%}')", {}))
+  end
+
+  def test_a_url_ends_at_a_tag
+    assert_equal('https://x.com/a?b=1&c=2<br>Ṅṓṓẁ', @backend.translate(:en, 'https://x.com/a?b=1&c=2<br>Now', {}))
+    assert_equal("https://x.io/Don't_Look_Up ẋ", @backend.translate(:en, "https://x.io/Don't_Look_Up x", {}))
+  end
+
+  def test_only_well_formed_character_references_are_preserved
+    assert_equal('&amp; &#39; &#x27; &frac12; &ϝṓṓṓṓ-ḅααṛ; ḀḀṪ&Ṫ', @backend.translate(:en, '&amp; &#39; &#x27; &frac12; &foo-bar; AT&T', {}))
   end
 
   def test_unterminated_openers_are_pseudolocalized_as_text
@@ -91,7 +124,7 @@ class PseudolocalizationTest < Minitest::Test
   end
 
   def test_many_unterminated_openers_complete_in_linear_time
-    ['<', '<"', "<'", '{{', '%{', '&'].each do |opener|
+    ['<', '</"', "</'", '<!--', '<!-- -', '{{', '{{"', "{{'", '{%', '{% "', '%{', '&', '&#'].each do |opener|
       input = opener * 100_000
       started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
       assert_equal(input, @backend.translate(:en, input, {}))
