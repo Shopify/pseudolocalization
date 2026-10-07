@@ -3,11 +3,13 @@ module Pseudolocalization
     class Pseudolocalizer
       ESCAPED_REGEX = Regexp.new("(#{
         [
-          "<[^<>\"'\\n]*(?:(?:\"[^\"\\n]*\"|'[^'\\n]*')[^<>\"'\\n]*)*>",
-          "{{[^{}\\n]*}}",
-          "%{[^{}\\n]*}",
-          "https?:\/\/\\S+",
-          "&[^\\s&;]*;"
+          "<!--(?:[^-]|-[^-])*-->",                                            # HTML comment
+          "<[a-zA-Z/!?][^<>\"']*(?:(?:\"[^\"]*\"|'[^']*')[^<>\"']*)*>",         # HTML tag, end tag, doctype
+          "{{[^{}\"']*(?:(?:\"[^\"]*\"|'[^']*')[^{}\"']*)*}}",                 # Liquid output
+          "{%-?\\s*[a-zA-Z#][^%\"']*(?:(?:\"[^\"]*\"|'[^']*')[^%\"']*)*%}",    # Liquid tag
+          "%{[^{}\\n]*}",                                                      # Ruby I18n interpolation
+          "https?:\/\/[^\\s<>]+",                                             # URL
+          "&(?:[a-zA-Z][a-zA-Z0-9]*|#[0-9]+|#[xX][0-9a-fA-F]+);",              # HTML character reference
         ].join('|')
       })")
 
