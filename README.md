@@ -74,6 +74,14 @@ I18n.backend = Pseudolocalization::I18n::Backend.new(I18n.backend)
 I18n.backend.ignores = ['ignored*', /Waldo.$/]
 ```
 
+### Apply only to specific locales
+You may wish to have the backend only apply to specific locales. These may be configured via an array, `only_locales`, on the backend.
+
+```ruby
+I18n.backend = Pseudolocalization::I18n::Backend.new(I18n.backend)
+I18n.backend.only_locales = [:en, :xx, :zz]
+```
+
 ### How to run tests
 
 ```bash
