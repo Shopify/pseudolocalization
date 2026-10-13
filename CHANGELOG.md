@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+Nil.
+
+## [0.10.0] - 2026-10-12
 ### Fixed
 - Fixed slow matching in `ESCAPED_REGEX` on strings with many unclosed `<`, `{{`, `%{` or `&` (CWE-1333). Lazy wildcards became character classes bounded by each token's own delimiters. Output is unchanged or improved for well-formed input; a token containing a nested opener of its own kind (`<b <i>x</i>`, `{{ a {b} }}`, `&a&amp;`) is no longer swallowed up to the first closer. Quoted HTML attribute values may now contain `<` and `>`.
 - `ESCAPED_REGEX` now also preserves HTML comments (`<!-- -->`), Liquid tags (`{% %}`), markup spanning a newline, and `{`/`}` inside quoted Liquid strings; a `<` not followed by a letter, `/`, `!` or `?` is treated as text; a URL ends at `<` or `>`; only well-formed character references (`&name;`, `&#39;`, `&#x27;`) are kept. Output is unchanged for every string in Shopify Core's English locale files except 19 Liquid email subjects, where `{% if … %}` tags are now preserved instead of pseudolocalized.
@@ -58,7 +61,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Please refer to [GitHub releases](https://github.com/Shopify/pseudolocalization/releases) for releases prior to [0.8.0].
 
-[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/0.9.1...HEAD
+[Unreleased]: https://github.com/Shopify/pseudolocalization/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/Shopify/pseudolocalization/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/Shopify/pseudolocalization/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/Shopify/pseudolocalization/compare/0.8.4...0.9.0
 [0.8.4]: https://github.com/Shopify/pseudolocalization/compare/0.8.3...0.8.4
