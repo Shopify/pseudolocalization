@@ -5,11 +5,12 @@ module Pseudolocalization
   module I18n
     class Backend
       attr_reader :original_backend
-      attr_accessor :ignores
+      attr_accessor :ignores, :only_locales
 
       def initialize(original_backend)
         @original_backend = original_backend
         @ignores = []
+        @only_locales = []
         yield self if block_given?
       end
 
@@ -26,7 +27,7 @@ module Pseudolocalization
       end
 
       def translate(locale, key, options)
-        return original_backend.translate(locale, key, options) if key_ignored?(key)
+        return original_backend.translate(locale, key, options) if key_ignored?(key) || locale_ignored?(locale)
 
         ::Pseudolocalization::I18n::Pseudolocalizer.pseudolocalize(original_backend.translate(locale, key, options))
       end
@@ -39,6 +40,12 @@ module Pseudolocalization
       end
 
       private
+
+      def locale_ignored?(locale)
+        return false if only_locales.empty?
+
+        !only_locales.include?(locale)
+      end
 
       def key_ignored?(key)
         return false unless ignores
