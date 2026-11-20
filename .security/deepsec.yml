@@ -1,0 +1,12 @@
+# deepsec security review of this repository: devx deepsec run (see devx deepsec help).
+# Context for the model: .security/deepsec/<project>.md.
+projects:
+  pseudolocalization: { matchers: [deepsec/matchers-pseudolocalization.json] }
+  # Optional settings per project:
+  #   root: components/x            review a subdirectory (relative to the zone)
+  #   tech: [rails]                 force Rails detection (engines without a Gemfile)
+  #   matchers: [rails-full]        shared matcher sets (rails-ingress, rails-full) or .json specs
+  #   ignore: ["**/test/**"]        globs left out of the review
+  #   priority: [app/controllers/]  reviewed first
+  #   prompt: extra instructions appended to the system prompt
+  #   title: Report title         heading of the published report

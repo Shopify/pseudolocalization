@@ -1,0 +1,82 @@
+[
+  {
+    "version": 1,
+    "slug": "pseudolocalization-i18n-backend-proxy",
+    "description": "Pseudolocalization::I18n::Backend decorator: method_missing/public_send proxy dispatch to the host app's real backend, host-supplied ignores glob/regex bypass in key_ignored?, implicit Rails logger constant, and unbounded recursive translation-tree walk.",
+    "noiseTier": "precise",
+    "filePatterns": ["lib/pseudolocalization.rb"],
+    "patterns": [
+      {
+        "source": "def method_missing\\(name, \\*args, &block\\)",
+        "label": "dynamic proxy method_missing"
+      },
+      {
+        "source": "original_backend\\.public_send\\(",
+        "label": "forwarding dispatch to real backend"
+      },
+      {
+        "source": "original_backend\\.(?:translate|send)\\(",
+        "label": "delegation to wrapped backend"
+      },
+      {
+        "source": "File\\.fnmatch\\(ignore, key\\.to_s\\)",
+        "label": "glob-based ignore bypass"
+      },
+      {
+        "source": "key\\.to_s\\.match\\(ignore\\)",
+        "label": "regex-based ignore bypass"
+      },
+      {
+        "source": "Rails\\.logger\\.tagged\\(",
+        "label": "implicit Rails constant in gem"
+      },
+      {
+        "source": "pseudolocalize_node\\(value, scope \\+ \\[key\\]\\)",
+        "label": "unbounded recursive node walk"
+      }
+    ],
+    "examples": [
+      "          original_backend.public_send(name, *args, &block)",
+      "      def method_missing(name, *args, &block)",
+      "        return original_backend.translate(locale, key, options) if key_ignored?(key)",
+      "            File.fnmatch(ignore, key.to_s)",
+      "            key.to_s.match(ignore)",
+      "            Rails.logger.tagged('Pseudolocalization I18n').error('Ignore type unsupported. Expects an array of (mixed) Regexp or Strings.')",
+      "            memo[key] = pseudolocalize_node(value, scope + [key])",
+      "        original_backend.send(:init_translations)"
+    ],
+    "closesSurfaceIds": ["i18n-backend-proxy-surface"]
+  },
+  {
+    "version": 1,
+    "slug": "pseudolocalization-escaped-regex-allowlist",
+    "description": "ESCAPED_REGEX allowlist compiler in the Pseudolocalizer: alternation branches assembled at load time and consumed by String#split, where a new nested/unbounded quantifier reintroduces ReDoS and a capturing group splices text into pseudolocalized output.",
+    "noiseTier": "precise",
+    "filePatterns": ["lib/pseudolocalization/pseudolocalizer.rb"],
+    "patterns": [
+      {
+        "source": "ESCAPED_REGEX = Regexp\\.new\\(",
+        "label": "allowlist regex assembled at load"
+      },
+      {
+        "source": "\\.join\\('\\|'\\)",
+        "label": "alternation branches joined"
+      },
+      {
+        "source": "string\\.split\\(ESCAPED_REGEX\\)",
+        "label": "split on allowlist regex (capture-group splice)"
+      },
+      {
+        "source": "\\[\\^[^\\]]{1,40}\\]\\*",
+        "label": "negated class with unbounded quantifier"
+      }
+    ],
+    "examples": [
+      "      ESCAPED_REGEX = Regexp.new(\"(#{",
+      "        ].join('|')",
+      "          string.split(ESCAPED_REGEX).map do |part|",
+      "          \"<[a-zA-Z/!?][^<>\\\"']*(?:(?:\\\"[^\\\"]*\\\"|'[^']*')[^<>\\\"']*)*>\",         # HTML tag, end tag, doctype"
+    ],
+    "closesSurfaceIds": ["escaped-regex-allowlist"]
+  }
+]
